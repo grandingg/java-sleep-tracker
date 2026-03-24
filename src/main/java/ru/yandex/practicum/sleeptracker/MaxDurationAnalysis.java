@@ -3,7 +3,7 @@ package ru.yandex.practicum.sleeptracker;
 import java.time.Duration;
 import java.util.List;
 
-public class MaxDurationAnalysis implements SleepAnalyzer {
+public class MaxDurationAnalysis implements SleepAnalyzer<Long> {
 
     public SleepAnalysisResult<?> analyze(List<SleepingSession> sessions) {
 

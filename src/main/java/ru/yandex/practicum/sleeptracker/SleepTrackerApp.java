@@ -5,16 +5,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SleepTrackerApp {
 
     public static void main(String[] args) throws IOException {
-        List<SleepingSession> sessions = new ArrayList<>();
+        if (args.length == 0) {
+            System.out.println("Не указан путь к файлу.");
+            return;
+        }
 
-        try (FileReader reader = new FileReader("src/main/resources/sleep_log.txt");
-             BufferedReader br = new BufferedReader(reader)) {
+        List<SleepingSession> sessions;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(args[0]))) {
 
             sessions = br.lines()
                     .map(SleepTrackerApp::parseSession)
@@ -37,21 +40,9 @@ public class SleepTrackerApp {
         List<SleepingSession> finalSessions = sessions;
         //Idea сказала так сделать(создать новый список)
 
-        analysis.forEach(analyser -> {
-            SleepAnalysisResult<?> result = analyser.analyze(finalSessions);
-            Object value = result.getAmount();
-
-            if (value instanceof Double) {
-                System.out.println(
-                        result.getDescription() +
-                                String.format("%.2f", value)
-                );
-            } else {
-                System.out.println(
-                        result.getDescription() + value
-                );
-            }
-        });
+        analysis.forEach(analyser ->
+                System.out.println(analyser.analyze(sessions))
+        );
 
     }
 

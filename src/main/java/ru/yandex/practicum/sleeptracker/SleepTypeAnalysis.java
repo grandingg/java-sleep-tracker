@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
-public class SleepTypeAnalysis implements SleepAnalyzer {
+public class SleepTypeAnalysis implements SleepAnalyzer<SleepType> {
 
     private boolean isNight(SleepingSession session) {
         LocalDateTime start = session.getStart();
@@ -34,7 +34,13 @@ public class SleepTypeAnalysis implements SleepAnalyzer {
     }
 
     @Override
-    public SleepAnalysisResult<?> analyze(List<SleepingSession> sessions) {
+    public SleepAnalysisResult<SleepType> analyze(List<SleepingSession> sessions) {
+
+        String description = "Ваш хронотип: ";
+
+        if (sessions == null || sessions.isEmpty()) {
+            return new SleepAnalysisResult<>(description, SleepType.DOVE);
+        }
 
         long owl = sessions.stream()
                 .filter(this::isNight)
@@ -50,17 +56,15 @@ public class SleepTypeAnalysis implements SleepAnalyzer {
                 .filter(this::isNight)
                 .count() - owl - lark;
 
-        String nightType;
+        SleepType nightType;
 
-        if ((owl > lark) && (owl > dove)) {
-            nightType = "Сова";
-        } else if ((lark > owl) && (lark > dove)) {
-            nightType = "Жаворонок";
+        if (owl > lark && owl > dove) {
+            nightType = SleepType.OWL;
+        } else if (lark > owl && lark > dove) {
+            nightType = SleepType.LARK;
         } else {
-            nightType = "Голубь";
+            nightType = SleepType.DOVE;
         }
-
-        String description = "Ваш хронотип: ";
 
         return new SleepAnalysisResult<>(description, nightType);
     }

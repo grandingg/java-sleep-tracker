@@ -4,10 +4,17 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class SleeplessNightsAnalysis implements SleepAnalyzer {
+public class SleeplessNightsAnalysis implements SleepAnalyzer<Long> {
 
     @Override
-    public SleepAnalysisResult<?> analyze(List<SleepingSession> sessions) {
+    public SleepAnalysisResult<Long> analyze(List<SleepingSession> sessions) {
+
+        String description = "Количество бессонных ночей: ";
+
+        if (sessions == null || sessions.isEmpty()) {
+            return new SleepAnalysisResult<>(description, 0L);
+        }
+
         SleepingSession firstSession = sessions.getFirst();
         SleepingSession lastSession = sessions.getLast();
 
@@ -42,8 +49,6 @@ public class SleeplessNightsAnalysis implements SleepAnalyzer {
         //    .findAny()
         //  .isPresent();
         //Я сначала написала, так, но idea исправила на anyMatch
-
-        String description = "Количество бессонных ночей: ";
 
         return new SleepAnalysisResult<>(description, sleeplessNights);
     }
