@@ -2,7 +2,7 @@ package ru.yandex.practicum.sleeptracker;
 
 import java.util.List;
 
-public class BadSleepSessionsAnalysis implements SleepAnalyzer {
+public class BadSleepSessionsAnalysis implements SleepAnalyzer<Long> {
 
     public SleepAnalysisResult<?> analyze(List<SleepingSession> sessions) {
 

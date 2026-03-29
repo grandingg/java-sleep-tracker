@@ -3,7 +3,7 @@ package ru.yandex.practicum.sleeptracker;
 import java.time.Duration;
 import java.util.List;
 
-public class AverageDurationAnalysis implements SleepAnalyzer {
+public class AverageDurationAnalysis implements SleepAnalyzer<Double> {
 
     @Override
     public SleepAnalysisResult<?> analyze(List<SleepingSession> sessions) {

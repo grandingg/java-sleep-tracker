@@ -1,7 +1,6 @@
 package ru.yandex.practicum.sleeptracker;
 
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -33,7 +32,7 @@ public class SleepTypeAnalysisTest {
         SleepTypeAnalysis analysis = new SleepTypeAnalysis();
         SleepAnalysisResult<?> result = analysis.analyze(sessions);
 
-        assertEquals("Сова", result.getAmount());
+        assertEquals(SleepType.OWL, result.getAmount());
     }
 
     @Test
@@ -47,6 +46,6 @@ public class SleepTypeAnalysisTest {
         SleepTypeAnalysis analysis = new SleepTypeAnalysis();
         SleepAnalysisResult<?> result = analysis.analyze(sessions);
 
-        assertEquals("Сова", result.getAmount());
+        assertEquals(SleepType.OWL, result.getAmount());
     }
 }

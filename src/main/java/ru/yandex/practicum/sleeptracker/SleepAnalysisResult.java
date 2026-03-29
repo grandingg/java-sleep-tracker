@@ -16,4 +16,12 @@ public class SleepAnalysisResult<T> {
     public T getAmount() {
         return amount;
     }
+
+    @Override
+    public String toString() {
+        if (amount instanceof Double doubleValue) {
+            return description + String.format("%.2f", doubleValue);
+        }
+        return description + amount;
+    }
 }

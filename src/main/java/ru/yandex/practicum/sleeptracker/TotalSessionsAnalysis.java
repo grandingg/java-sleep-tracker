@@ -2,7 +2,7 @@ package ru.yandex.practicum.sleeptracker;
 
 import java.util.List;
 
-public class TotalSessionsAnalysis implements SleepAnalyzer {
+public class TotalSessionsAnalysis implements SleepAnalyzer<Integer> {
 
 
     @Override
